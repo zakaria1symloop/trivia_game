@@ -36,6 +36,7 @@ Each question should:
 - Include a brief fun fact related to the answer
 - Be appropriate for all audiences (no politics, nothing controversial)
 - Focus on positive, interesting aspects of Middle Eastern culture
+- IMPORTANT: Never mention pork, alcohol, or anything forbidden (haram) in Islam. Only halal food and drinks.
 
 Return as JSON array with this exact structure:
 [
@@ -54,7 +55,7 @@ Only return the JSON array, no other text.`;
       messages: [
         {
           role: 'system',
-          content: 'You are a friendly trivia game host who creates fun, educational questions about Middle Eastern culture, food, and history. You always generate valid JSON responses.',
+          content: 'You are a friendly trivia game host who creates fun, educational questions about Middle Eastern culture, food, and history. You always generate valid JSON responses. You never mention pork, alcohol, or anything haram (forbidden in Islam). All food references must be halal.',
         },
         {
           role: 'user',
