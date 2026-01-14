@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 const categoryPrompts = {
   food: "traditional Middle Eastern and Syrian/Aleppo cuisine, famous dishes like hummus, falafel, kibbeh, shawarma, kebabs, mezze, and cooking techniques",
   sweets: "Arabic and Middle Eastern sweets and desserts like baklava, kunafa, maamoul, halva, Turkish delight, and traditional pastries",
@@ -18,6 +14,11 @@ const categoryPrompts = {
 export async function POST(request: NextRequest) {
   try {
     const { category, audience, language, count = 10 } = await request.json();
+
+    // Initialize OpenAI client at runtime, not build time
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const categoryContext = categoryPrompts[category as keyof typeof categoryPrompts] || categoryPrompts.mixed;
     const audienceLevel = audience === 'kids' ? 'children aged 6-12, using simple words and fun facts' : 'adults, with more detailed and interesting information';
