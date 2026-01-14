@@ -71,7 +71,7 @@ export default function TrueFalseQuestion({ question, onAnswer, isRTL, translati
           textAlign: 'center',
         }}
       >
-        <div style={{ fontSize: '32px', marginBottom: '12px' }}>❓</div>
+        <div style={{ fontSize: '32px', marginBottom: '12px' }}>📜</div>
         <h3
           className={`text-base font-bold text-brown-dark ${isRTL ? 'font-arabic' : ''}`}
           style={{ lineHeight: '1.6' }}

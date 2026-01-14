@@ -376,6 +376,35 @@ function StandardQuestion({
   );
 }
 
+// Convert a question + answer into a statement for True/False
+function convertToStatement(question: string, answer: string): string {
+  // Remove question mark
+  let q = question.replace('?', '').trim();
+
+  // Common patterns to convert
+  if (q.toLowerCase().startsWith('what is ')) {
+    return q.replace(/^what is /i, '') + ' is ' + answer + '.';
+  }
+  if (q.toLowerCase().startsWith('what are ')) {
+    return q.replace(/^what are /i, '') + ' are ' + answer + '.';
+  }
+  if (q.toLowerCase().startsWith('which ')) {
+    return answer + ' ' + q.replace(/^which /i, '').replace(/^[a-z]/, c => c.toLowerCase()) + '.';
+  }
+  if (q.toLowerCase().startsWith('who ')) {
+    return answer + ' ' + q.replace(/^who /i, '').replace(/^[a-z]/, c => c.toLowerCase()) + '.';
+  }
+  if (q.toLowerCase().startsWith('where ')) {
+    return q.replace(/^where /i, '') + ' is in ' + answer + '.';
+  }
+  if (q.toLowerCase().startsWith('how many ')) {
+    return 'There are ' + answer + ' ' + q.replace(/^how many /i, '') + '.';
+  }
+
+  // Default: combine question and answer
+  return answer + ' - ' + q + '.';
+}
+
 // Assign question types to create variety
 function assignQuestionTypes(questions: any[]) {
   const types: QuestionType[] = ['standard', 'flipCard', 'trueFalse', 'speedRound'];
@@ -390,12 +419,15 @@ function assignQuestionTypes(questions: any[]) {
       type = 'flipCard';
     } else if (index === 3 || index === 7) {
       type = 'trueFalse';
-      // Convert to true/false format
+      // Convert question to a TRUE statement format
+      const correctAnswer = q.options[q.correctIndex];
+      const statement = convertToStatement(q.question, correctAnswer);
       return {
         ...q,
         type,
-        options: [q.options[q.correctIndex], q.options[(q.correctIndex + 1) % q.options.length]],
-        correctIndex: 0, // The first option is correct (True)
+        question: statement,
+        options: ['True', 'False'],
+        correctIndex: 0, // The statement is TRUE
       };
     } else if (index === 4 || index === 8) {
       type = 'speedRound';
