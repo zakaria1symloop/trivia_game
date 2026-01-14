@@ -65,8 +65,8 @@ export default function LanguageSelection() {
                 priority
               />
             </div>
-            <h1 className="title-main mt-4">Restaurant Name</h1>
-            <p className="title-sub mt-1">Trivia Game</p>
+            <h1 className="title-main mt-4">ALEPPO</h1>
+            <p className="title-sub mt-1">Discover the Ancient City</p>
           </motion.div>
 
           <div className="divider-gold" />
@@ -115,8 +115,8 @@ export default function LanguageSelection() {
             transition={{ delay: 0.6 }}
             className="mt-6 pt-4 border-t-2 border-gold-pale"
           >
-            <p className="text-brown-light text-sm">Learn fun facts while you wait!</p>
-            <p className="text-brown-light text-sm font-arabic-classic mt-1">تعلم حقائق ممتعة أثناء الانتظار!</p>
+            <p className="text-brown-light text-sm">Learn fun facts about Aleppo!</p>
+            <p className="text-brown-light text-sm font-arabic-classic mt-1">تعلم حقائق ممتعة عن حلب!</p>
           </motion.div>
         </div>
       </motion.div>

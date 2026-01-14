@@ -3,9 +3,9 @@ import "./globals.css";
 import AnimatedBackground from "@/components/AnimatedBackground";
 
 export const metadata: Metadata = {
-  title: "Restaurant Trivia Game",
-  description: "Fun trivia game about Middle Eastern culture, food, and history",
-  keywords: ["trivia", "game", "restaurant", "Middle East", "Arabic", "culture", "food"],
+  title: "ALEPPO - Discover the Ancient City",
+  description: "Fun trivia game about Aleppo - its delicious cuisine, rich culture, ancient history, and traditions",
+  keywords: ["Aleppo", "trivia", "game", "Syria", "cuisine", "culture", "history", "halabi"],
 };
 
 export const viewport: Viewport = {

@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 const categoryPrompts = {
-  food: "traditional Middle Eastern and Syrian/Aleppo cuisine, famous dishes like hummus, falafel, kibbeh, shawarma, kebabs, mezze, and cooking techniques",
-  sweets: "Arabic and Middle Eastern sweets and desserts like baklava, kunafa, maamoul, halva, Turkish delight, and traditional pastries",
-  culture: "Middle Eastern and Syrian culture, traditions, customs, hospitality, art, music, dance, and daily life",
-  history: "Middle Eastern history, ancient civilizations, the Silk Road, famous cities like Damascus and Aleppo, architecture, and historical figures",
-  spices: "Middle Eastern spices like za'atar, sumac, cumin, cardamom, saffron, baharat, and their uses in cooking",
-  religion: "Islamic traditions, practices, holidays like Ramadan and Eid, the significance of mosques, and interfaith aspects of Middle Eastern culture",
-  mixed: "a mix of Middle Eastern food, sweets, culture, history, spices, and traditions",
+  food: "traditional Aleppo cuisine, famous dishes like kibbeh Halabiya, kebab Halabi, muhammara, shanklish, fattoush, hummus, falafel, shawarma, and Aleppo's unique cooking techniques",
+  sweets: "Aleppo's famous sweets and desserts like mamouniyeh, sbiseh, halawet el jibn, baklava, kunafa, maamoul, and traditional Aleppian pastries",
+  culture: "Aleppo's rich culture, traditions, customs, hospitality, traditional crafts like soap-making and textile weaving, music, and daily life in this ancient city",
+  history: "Aleppo's ancient history as one of the oldest continuously inhabited cities, the Citadel of Aleppo, the Great Mosque, ancient souks, the Silk Road, and its role as a trading hub",
+  spices: "Aleppo's famous spices especially Aleppo pepper (biber), za'atar, cumin, sumac, seven spice blend, and the city's historic spice markets",
+  religion: "Islamic traditions in Aleppo, beautiful mosques, Ramadan and Eid celebrations, interfaith harmony, and the spiritual heritage of this ancient city",
+  mixed: "a mix of Aleppo's food, sweets, culture, history, spices, and traditions - celebrating this beautiful ancient city",
 };
 
 export async function POST(request: NextRequest) {
@@ -34,8 +34,8 @@ Each question should:
 - Be educational and fun
 - Have 4 multiple choice options
 - Include a brief fun fact related to the answer
-- Be appropriate for all audiences (no politics, nothing controversial)
-- Focus on positive, interesting aspects of Middle Eastern culture
+- Focus on Aleppo's beautiful heritage, food, culture, and history
+- STRICTLY NO politics, war, government, or anything controversial - only positive, fun, educational content
 - IMPORTANT: Never mention pork, alcohol, or anything forbidden (haram) in Islam. Only halal food and drinks.
 
 Return as JSON array with this exact structure:
@@ -55,7 +55,7 @@ Only return the JSON array, no other text.`;
       messages: [
         {
           role: 'system',
-          content: 'You are a friendly trivia game host who creates fun, educational questions about Middle Eastern culture, food, and history. You always generate valid JSON responses. You never mention pork, alcohol, or anything haram (forbidden in Islam). All food references must be halal.',
+          content: 'You are a friendly trivia game host who creates fun, educational questions about Aleppo, Syria - its amazing food, rich culture, ancient history, and traditions. You always generate valid JSON responses. You NEVER mention politics, war, government, or anything controversial. You never mention pork, alcohol, or anything haram. All content is positive, fun, and educational about this beautiful ancient city.',
         },
         {
           role: 'user',
