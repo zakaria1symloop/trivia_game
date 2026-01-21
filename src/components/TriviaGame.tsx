@@ -7,8 +7,8 @@ import confetti from 'canvas-confetti';
 import { useGameStore, QuestionType } from '@/store/gameStore';
 import { translations } from '@/lib/translations';
 import FlipCardQuestion from './questions/FlipCardQuestion';
-import TrueFalseQuestion from './questions/TrueFalseQuestion';
 import SpeedRoundQuestion from './questions/SpeedRoundQuestion';
+import AnswerImage from './AnswerImage';
 
 export default function TriviaGame() {
   const {
@@ -146,7 +146,6 @@ export default function TriviaGame() {
   const getTypeIcon = (type: QuestionType) => {
     switch (type) {
       case 'flipCard': return '🎴';
-      case 'trueFalse': return '⚖️';
       case 'speedRound': return '⚡';
       default: return '📝';
     }
@@ -210,20 +209,6 @@ export default function TriviaGame() {
               />
             )}
 
-            {questionType === 'trueFalse' && (
-              <TrueFalseQuestion
-                question={currentQuestion}
-                onAnswer={handleAnswer}
-                isRTL={isRTL}
-                translations={{
-                  trueText: t.trueText,
-                  falseText: t.falseText,
-                  correct: t.correct,
-                  incorrect: t.incorrect,
-                }}
-              />
-            )}
-
             {questionType === 'speedRound' && (
               <SpeedRoundQuestion
                 question={currentQuestion}
@@ -259,6 +244,13 @@ export default function TriviaGame() {
                 animate={{ opacity: 1, y: 0 }}
                 style={{ marginTop: '16px' }}
               >
+                {/* Answer Image */}
+                <AnswerImage
+                  answer={currentQuestion.options[currentQuestion.correctIndex]}
+                  category={category || 'food'}
+                  show={showResult && questionType !== 'speedRound'}
+                />
+
                 {currentQuestion.funFact && questionType !== 'speedRound' && (
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -376,60 +368,17 @@ function StandardQuestion({
   );
 }
 
-// Convert a question + answer into a statement for True/False
-function convertToStatement(question: string, answer: string): string {
-  // Remove question mark
-  let q = question.replace('?', '').trim();
-
-  // Common patterns to convert
-  if (q.toLowerCase().startsWith('what is ')) {
-    return q.replace(/^what is /i, '') + ' is ' + answer + '.';
-  }
-  if (q.toLowerCase().startsWith('what are ')) {
-    return q.replace(/^what are /i, '') + ' are ' + answer + '.';
-  }
-  if (q.toLowerCase().startsWith('which ')) {
-    return answer + ' ' + q.replace(/^which /i, '').replace(/^[a-z]/, c => c.toLowerCase()) + '.';
-  }
-  if (q.toLowerCase().startsWith('who ')) {
-    return answer + ' ' + q.replace(/^who /i, '').replace(/^[a-z]/, c => c.toLowerCase()) + '.';
-  }
-  if (q.toLowerCase().startsWith('where ')) {
-    return q.replace(/^where /i, '') + ' is in ' + answer + '.';
-  }
-  if (q.toLowerCase().startsWith('how many ')) {
-    return 'There are ' + answer + ' ' + q.replace(/^how many /i, '') + '.';
-  }
-
-  // Default: combine question and answer
-  return answer + ' - ' + q + '.';
-}
-
 // Assign question types to create variety
 function assignQuestionTypes(questions: any[]) {
-  const types: QuestionType[] = ['standard', 'flipCard', 'trueFalse', 'speedRound'];
-
   return questions.map((q, index) => {
-    // Create a pattern: standard, flipCard, standard, trueFalse, standard, speedRound, repeat
+    // Create a pattern: standard, flipCard, standard, speedRound, repeat
     let type: QuestionType;
 
     if (index === 0) {
       type = 'standard'; // First question is always standard
-    } else if (index === 1 || index === 5) {
+    } else if (index === 1 || index === 5 || index === 9) {
       type = 'flipCard';
     } else if (index === 3 || index === 7) {
-      type = 'trueFalse';
-      // Convert question to a TRUE statement format
-      const correctAnswer = q.options[q.correctIndex];
-      const statement = convertToStatement(q.question, correctAnswer);
-      return {
-        ...q,
-        type,
-        question: statement,
-        options: ['True', 'False'],
-        correctIndex: 0, // The statement is TRUE
-      };
-    } else if (index === 4 || index === 8) {
       type = 'speedRound';
       return { ...q, type, timeLimit: 10 };
     } else {
