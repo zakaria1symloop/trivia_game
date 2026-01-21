@@ -103,22 +103,7 @@ export default function AnswerImage({ answer, category, show }: AnswerImageProps
         </div>
       )}
 
-      {error && (
-        <div
-          style={{
-            width: '100%',
-            height: '100px',
-            background: 'var(--gold-pale)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--brown-dark)',
-            fontSize: '14px',
-          }}
-        >
-          🖼️ {answer}
-        </div>
-      )}
+      {/* Don't show anything if image fails to load */}
     </motion.div>
   );
 }
