@@ -40,13 +40,13 @@ export default function AnswerImage({ answer, category, show }: AnswerImageProps
     }
   }, [show, answer, category]);
 
-  if (!show) return null;
+  if (!show || !imageUrl || loading || error) return null;
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.3, duration: 0.4 }}
+      transition={{ delay: 0.5, duration: 0.4 }}
       style={{
         marginTop: '12px',
         marginBottom: '12px',
@@ -56,28 +56,7 @@ export default function AnswerImage({ answer, category, show }: AnswerImageProps
         boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
       }}
     >
-      {loading && (
-        <div
-          style={{
-            width: '100%',
-            height: '150px',
-            background: 'linear-gradient(135deg, var(--gold-pale) 0%, var(--cream) 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-            style={{ fontSize: '24px' }}
-          >
-            📷
-          </motion.div>
-        </div>
-      )}
-
-      {imageUrl && !loading && !error && (
+      {imageUrl && (
         <div style={{ position: 'relative', width: '100%', height: '150px' }}>
           <Image
             src={imageUrl}
