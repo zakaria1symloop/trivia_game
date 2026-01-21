@@ -8,7 +8,6 @@ import { useGameStore, QuestionType } from '@/store/gameStore';
 import { translations } from '@/lib/translations';
 import FlipCardQuestion from './questions/FlipCardQuestion';
 import SpeedRoundQuestion from './questions/SpeedRoundQuestion';
-import AnswerImage from './AnswerImage';
 
 export default function TriviaGame() {
   const {
@@ -244,13 +243,6 @@ export default function TriviaGame() {
                 animate={{ opacity: 1, y: 0 }}
                 style={{ marginTop: '16px' }}
               >
-                {/* Answer Image */}
-                <AnswerImage
-                  answer={currentQuestion.options[currentQuestion.correctIndex]}
-                  category={category || 'food'}
-                  show={showResult && questionType !== 'speedRound'}
-                />
-
                 {currentQuestion.funFact && questionType !== 'speedRound' && (
                   <motion.div
                     initial={{ opacity: 0 }}
